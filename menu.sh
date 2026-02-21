@@ -57,7 +57,7 @@ case $choice in
     ;;
   B|b)
     echo -e "${LIGHTBLUE}Starting VPS Maker...${RESET}"
-    bash <(curl -fsSL https://raw.githubusercontent.com/pingboyz/vms/main/vm.sh)
+    bash <(curl -fsSL https://raw.githubusercontent.com/hopingboyz/vms/main/vm.sh)
     ;;
   C|c)
     echo -e "${LIGHTBLUE}Exiting...${RESET}"
